@@ -15,7 +15,13 @@ export class AuthService {
     ){}
 
     async login(dto:AuthDto){
-        return this.validateUser(dto)
+        const user = await this.validateUser(dto)
+        const tokens = await this.issueTokenPair(String(user._id))
+    
+        return {
+            user: this.returnUserFields(user),
+            ...tokens
+        }
     }
 
     async register(dto:AuthDto){
@@ -30,7 +36,13 @@ export class AuthService {
             password: await hash(dto.password, salt)
         }
         )
-        return newUser.save()
+
+        const tokens = await this.issueTokenPair(String(newUser._id))
+    
+        return {
+            user: this.returnUserFields(newUser),
+            ...tokens
+        }
     }
 
     async validateUser(dto:AuthDto):Promise<UserModel>{
