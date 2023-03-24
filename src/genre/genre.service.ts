@@ -42,7 +42,7 @@ export class GenreService {
     async getCollections(){
         const genres = await this.getAll()
         const collections = genres
-        //write smth
+        //write something
         return collections
     }
 
@@ -55,9 +55,12 @@ export class GenreService {
     }
 
     async update(_id:string, dto: CreateGenreDto){
-        return this.GenreModel.findByIdAndUpdate(_id,dto, {
+        const updateDoc = this.GenreModel.findByIdAndUpdate(_id,dto, {
             new:true
         } ).exec()
+
+        if(!updateDoc) throw new NotFoundException('Type not found!')
+        return updateDoc
     }
 
     async create(){
@@ -72,6 +75,9 @@ export class GenreService {
     }
 
     async delete(id:string){
-        return this.GenreModel.findByIdAndDelete(id).exec()
+       const deleteDoc = this.GenreModel.findByIdAndDelete(id).exec()
+
+       if(!deleteDoc) throw new NotFoundException('Type not found!')
+       return deleteDoc
     }
 }
