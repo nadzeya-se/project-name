@@ -9,6 +9,7 @@ import { UserModule } from './user/user.module';
 import { GenreModule } from './genre/genre.module'
 import { FileModule } from './file/file.module'
 import { IngredientsModule } from './ingredients/ingredients.module'
+import { DessertModule } from './dessert/dessert.module'
 
 
 @Module({
@@ -23,7 +24,8 @@ import { IngredientsModule } from './ingredients/ingredients.module'
     UserModule,
     GenreModule,
     FileModule,
-    IngredientsModule
+    IngredientsModule,
+    DessertModule
   ],
   controllers: [AppController],
   providers: [AppService],
